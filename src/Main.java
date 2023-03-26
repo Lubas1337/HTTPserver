@@ -15,6 +15,15 @@ public class Main {
             Socket client = server.accept();
             System.out.println("Client connected: " + client.getInetAddress());
 
+            // Получаем ответ от сервера
+            String response = "Hello, World!";
+            String httpResponse = "HTTP/1.1 200 OK\r\n\r\n" + response;
+
+            // Отправляем на клиент
+            OutputStream output = client.getOutputStream();
+            output.write(httpResponse.getBytes());
+            output.flush();
+
             // Отключаем соедениение
             client.close();
         }
